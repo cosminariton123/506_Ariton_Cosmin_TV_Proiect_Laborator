@@ -55,4 +55,12 @@ C3 = {n | n in N3 si iesirea I3} -----> n = 123456
 
 }
 
+cause-effect graphing.
+@Test
+    void gce(){
+        Assertions.assertEquals("Numarul nu este valid", main.calculeaza(687));
+        Assertions.assertEquals("DA", main.calculeaza(5321));
+        Assertions.assertEquals("NU", main.calculeaza(4000));
+    }
+
      */

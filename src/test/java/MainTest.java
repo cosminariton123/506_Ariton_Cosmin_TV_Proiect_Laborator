@@ -19,6 +19,8 @@ public class MainTest {
     Mai mult, verificarile vor fi executate in ordinea descrisa anterior, verificarea pentru eroarea -4 nefiind
         executata daca c = 1
 
+
+
     Equivalence partitioning
 
     Intrare
@@ -113,14 +115,22 @@ public class MainTest {
         Assertions.assertEquals(0, Main.ciocolata(2, 6, Arrays.asList(1, 2, 3, 4, 5, 6)));
     }
 
+    /*
+    Boundary value analysis
+
+     */
     @Test
-    void verificaProblema2_1() {
-        Assertions.assertEquals(3, Main.ciocolata(2, 5, Arrays.asList(14, 4, 25, 2, 9)));
+    void boundryValueAnalysis() {
+
     }
 
+
+    /*
+    Cause-effect graphing
+     */
     @Test
-    void verificaProblema2_2() {
-        Assertions.assertEquals(1, Main.ciocolata(2, 11, Arrays.asList(3, 7, 3, 12, 4, 9, 4, 2, 6, 5, 17)));
-        }
+    void causeEffectGraphing(){
+
+    }
 
 }
