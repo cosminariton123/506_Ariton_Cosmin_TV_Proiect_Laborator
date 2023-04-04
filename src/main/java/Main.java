@@ -56,17 +56,20 @@ public class Main {
                 while (d_sir.peek() != null && irina - mihaela < 0)
                     irina += d_sir.pollFirst();
 
-                if (irina - mihaela > 0 && min > irina - mihaela) {
+                if (irina - mihaela >= 0 && min > irina - mihaela) {
                     min = irina - mihaela;
                 }
 
                 while (d_sir.peek() != null && mihaela - irina < 0) {
                     mihaela += d_sir.pollLast();
 
-                    if (irina - mihaela > 0 && min > irina - mihaela) {
+                    if (irina - mihaela >= 0 && min > irina - mihaela) {
                         min = irina - mihaela;
                     }
                 }
+
+                if (min == 0)
+                    return min;
 
             }
             return min;
