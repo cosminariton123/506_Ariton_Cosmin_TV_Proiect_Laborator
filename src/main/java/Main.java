@@ -9,11 +9,11 @@ public class Main {
 
     public static Integer ciocolata(Integer c, Integer n, List<Integer> sir) {
 
-        if (n < 0 || n > 100_000)
+        if (n < 1 || n > 100_000)
             return -2;
 
         for (Integer elem : sir)
-            if (elem <= 0 || elem >= 10_000)
+            if (elem <= 0 || elem > 10_000)
                 return -3;
 
         if (c == 1) {
@@ -50,6 +50,9 @@ public class Main {
 
             irina += d_sir.pollFirst();
             mihaela += d_sir.pollLast();
+
+            if (irina - mihaela >= 0 && min > irina - mihaela)
+                min = irina - mihaela;
 
             while (d_sir.peek() != null) {
 

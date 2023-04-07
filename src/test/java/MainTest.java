@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainTest {
 
@@ -40,11 +42,12 @@ public class MainTest {
     N4 = {1}
 
     Domeniu pt sir
-    SIR1 = {x | x > 0, x < 10_000, k >= 2 in numere_naturale, x = xk, sum(xi) > sum(xi+1) cu i in numere_naturale in [1, k]}; sir ce garanteaza solutie
-    SIR2 = {x | x > 0, x < 10_000, k >= 2 in numere_naturale, x = xk, sum(xi) = sum(xi+1) cu i in numere_naturale in [1, k]}; sir ce garanteaza solutie
+    SIR1 = {x | x > 0, x < 10_000, k >= 2 in numere_naturale, x = xk, sum(x1..xi) - sum(xj..xn) > 0 cu i < j, numere_naturale in [1, k]}; sir ce garanteaza solutie
+    SIR2 = {x | x > 0, x < 10_000, k >= 2 in numere_naturale, x = xk, sum(x1..xi) - sum(xj..xn) = 0 cu i < j, numere_naturale in [1, k]}; sir ce garanteaza solutie
     SIR3 = {x | x > 0, x < 10_000}; sir cu un singur numar ce respecta intervalul specificat; sirul nu garanteaza existenta unei solutii, dar este disjunct cu c = 2
     SIR4 = {x | exista x a.i x <= 0, k in numere_naturale, x = xk}
     SIR5 = {x | exista x a.i x >= 10_000, k in numere_naturale, x = xk}
+    SIR6 = {x | x > 0, x < 10_000, k >= 2 in numere_naturale, x = xk, sum(x1..xi) - sum(xj..xn) < 0 cu i < j, numere_naturale in [1, k]}; sirul nu reprezinta solutie pentru c2, deci compatibil doar cu c1
     Cum problema garanteaza solutie si nu se precizeaza nimic despre tratarea diferita a sirurilor ce nu au solutie
         atunci nu determina clase de echivalenta suplimentare
     Intregul n determina lungimea sirului de numere "sir" si nu se precizeaza nimic despre tratarea diferita a sirurilor
@@ -76,15 +79,15 @@ public class MainTest {
     CL244 = {(c, n, sir) | c in C2, n in N4, sir in SIR4, si iesirea I3} --------> c = 2, n = 1, sir = (-1,)
     CL245 = {(c, n, sir) | c in C2, n in N4, sir in SIR5, si iesirea I3} --------> c = 2, n = 1, sir = (20_000,)
 
-    CL241 = {(c, n, sir) | c in C2, n in N4, sir in SIR3 si iesirea I4} --------> c = 2, n = 1, sir = (1,)
+    CL243 = {(c, n, sir) | c in C2, n in N4, sir in SIR3 si iesirea I4} --------> c = 2, n = 1, sir = (1,)
 
     CL121 = {(c, n, sir) | c in C1, n in N2, sir in SIR1, si iesirea I5} --------> c = 1, n = 6, sir = (1, 2, 3, 4, 5, 7)
     CL122 = {(c, n, sir) | c in C1, n in N2, sir in SIR2, si iesirea I5} --------> c = 1, n = 6, sir = (1, 2, 3, 4, 5, 6)
+    CL126 = {(c, n, sir) | c in C1, n in N2, sir in SIR6, si iesirea I5} --------> c = 1, n = 6, sir = (1, 2, 3, 4, 5, 300)
     CL143 = {(c, n, sir) | c in C1, n in N4, sir in SIR3, si iesirea I5} --------> c = 1, n = 1, sir = (2,)
 
-    CL121 = {(c, n, sir) | c in C1, n in N2, sir in SIR1, si iesirea I5} --------> c = 2, n = 6, sir = (1, 2, 3, 4, 5, 7)
-    CL122 = {(c, n, sir) | c in C1, n in N2, sir in SIR2, si iesirea I5} --------> c = 2, n = 6, sir = (1, 2, 3, 4, 5, 6)
-
+    CL221 = {(c, n, sir) | c in C1, n in N2, sir in SIR1, si iesirea I5} --------> c = 2, n = 6, sir = (1, 2, 3, 4, 5, 7)
+    CL222 = {(c, n, sir) | c in C1, n in N2, sir in SIR2, si iesirea I5} --------> c = 2, n = 6, sir = (1, 2, 3, 4, 5, 6)
      */
 
     @Test
@@ -109,6 +112,7 @@ public class MainTest {
 
         Assertions.assertEquals(1, Main.ciocolata(1, 6, Arrays.asList(1, 2, 3, 4, 5, 7)));
         Assertions.assertEquals(1, Main.ciocolata(1, 6, Arrays.asList(1, 2, 3, 4, 5, 6)));
+        Assertions.assertEquals(1, Main.ciocolata(1, 6, Arrays.asList(1, 2, 3, 4, 5, 300)));
         Assertions.assertEquals(2, Main.ciocolata(1, 1, Arrays.asList(2)));
 
         Assertions.assertEquals(3, Main.ciocolata(2, 6, Arrays.asList(1, 2, 3, 4, 5, 7)));
@@ -118,19 +122,74 @@ public class MainTest {
     /*
     Boundary value analysis
 
+    C1: 1 valoare de frontiera
+    C2: 2 valoare de frontiera
+    C3: 3, 4 valori de frontiera
+
+    N1: 0 valoare de frontiera
+    N2: 2,100_000 valori de frontiera
+    N3: 100_001 valoare de frontiera
+    N4: 1 valoare de frontiera
+
+    SIR1: 1, 10_000 valori de frontiera pentru fiecare element x din sir, lungimea sirului=2 valoare de frontiera, sum(x1..xi) - sum(xj..xn) = 1 cu i < j, numere_naturale in [1, k] valoare de frontiera
+    SIR2: 1, 10_000 valori de frontiera pentru fiecare element x din sir, lungimea sirului=2 valoare de frontiera, sum(x1..xi) - sum(xj..xn) = 0 cu i < j, numere_naturale in [1, k] valoare de frontiera
+    SIR3: 1, 10_000 valori de frontiera pentru fiecare element x din sir, lungimea sirului=1 valoare de frontiera
+    SIR4: 0 valoare de frontiera pentru cel putin un element x din sir
+    SIR5: 10_001 valoare de frontiera pentru cel putin un element x din sir
+    SIR6: 1, 10_000 valori de frontiera pentru fiecare element x din sir, lungimea sirului=2 valoare de frontiera, sum(x1..xi) - sum(xj..xn) = -1 cu i < j, numere_naturale in [1, k] valoare de frontiera
+
+    alte valori speciale:
+    In cadrul C2
+    SIR1:sum(x1..xi) - sum(xj..xn) = 1 cu i < j, numere_naturale in [1, k] valoare de frontiera cu i > 1 si j < n, adica, in contextul problemei, si Irina si Mihaela au mancat cel putin 2 tablete
+    SIR2: sum(x1..xi) - sum(xj..xn) = 0 cu i < j, numere_naturale in [1, k], adica, in contextul problemei, si Irina si Mihaela au mancat cel putin 2 tablete
      */
     @Test
     void boundryValueAnalysis() {
+        //Pentru C
+        Assertions.assertEquals(1, Main.ciocolata(1, 3, Arrays.asList(1, 1, 2)));
+        Assertions.assertEquals(1, Main.ciocolata(2, 5, Arrays.asList(1, 2, 3, 1, 4)));
+        Assertions.assertEquals(-1, Main.ciocolata(3, 3, Arrays.asList(1, 2, 3)));
+        Assertions.assertEquals(-1, Main.ciocolata(4, 3, Arrays.asList(1, 2 ,3)));
+
+        //Pentru N
+        Assertions.assertEquals(-2, Main.ciocolata(1, 0, Arrays.asList(1, 2, 3)));
+        Assertions.assertEquals(1, Main.ciocolata(1, 2, Arrays.asList(1, 2)));
+        List<Integer> longList = new ArrayList<>();
+        for (Integer i = 0; i < 100_000; i++)
+            longList.add(2);
+        Assertions.assertEquals(2, Main.ciocolata(1, 100_000, longList));
+        Assertions.assertEquals(-2, Main.ciocolata(1, 100_001, Arrays.asList(1, 2, 3)));
+        Assertions.assertEquals(1, Main.ciocolata(1, 1, Arrays.asList(1)));
+
+        //Pentru SIR
+        Assertions.assertEquals(9999, Main.ciocolata(2, 2, Arrays.asList(10_000, 1)));
+        Assertions.assertEquals(1, Main.ciocolata(2, 2, Arrays.asList(2, 1)));
+        Assertions.assertEquals(9999, Main.ciocolata(2, 2, Arrays.asList(10_000, 1)));
+        Assertions.assertEquals(0, Main.ciocolata(2, 2, Arrays.asList(1, 1)));
+        Assertions.assertEquals(1, Main.ciocolata(1, 1, Arrays.asList(1)));
+        Assertions.assertEquals(10_000, Main.ciocolata(1, 1, Arrays.asList(10_000)));
+        Assertions.assertEquals(-3, Main.ciocolata(1, 1, Arrays.asList(0)));
+        Assertions.assertEquals(-3, Main.ciocolata(1, 1, Arrays.asList(10_001)));
+        Assertions.assertEquals(1, Main.ciocolata(1, 2, Arrays.asList(10_000, 1)));
+        Assertions.assertEquals(1, Main.ciocolata(1, 2, Arrays.asList(2, 1)));
+
+        //Pentru alte valori speciale
+        Assertions.assertEquals(1, Main.ciocolata(2, 4, Arrays.asList(1, 33, 3, 30)));
+        Assertions.assertEquals(0, Main.ciocolata(2, 4, Arrays.asList(1, 32, 3, 30)));
 
     }
-
 
     /*
     Cause-effect graphing
      */
     @Test
     void causeEffectGraphing(){
-
+        Assertions.assertEquals(30, Main.ciocolata(1, 4, Arrays.asList(30, 30, 63, 89)));
+        Assertions.assertEquals(0, Main.ciocolata(2, 2, Arrays.asList(2, 2)));
+        Assertions.assertEquals(-1, Main.ciocolata(3, 2, Arrays.asList(2, 2)));
+        Assertions.assertEquals(-2, Main.ciocolata(1, -1, Arrays.asList(2, 3, 4)));
+        Assertions.assertEquals(-3, Main.ciocolata(1, 3, Arrays.asList(-1, 2, 3)));
+        Assertions.assertEquals(-4, Main.ciocolata(2, 1, Arrays.asList(3)));
     }
 
 }
