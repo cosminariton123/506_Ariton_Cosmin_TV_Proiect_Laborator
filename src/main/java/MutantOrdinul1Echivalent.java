@@ -2,12 +2,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class Main {
-
+public class MutantOrdinul1Echivalent {
 
     //https://www.pbinfo.ro/probleme/4402/ciocolata1
 
     public static Integer ciocolata(Integer c, Integer n, List<Integer> sir) {
+
+        //Diferenta:
+        Integer degeaba = 1;
+
+        if (c != 1 && c != 2)
+            return -1;
 
         if (n < 1 || n > 100_000)
             return -2;
@@ -36,8 +41,7 @@ public class Main {
             return maxIdx;
         }
 
-
-        if (c == 2) {
+        else  {
 
             if (n < 2)
                 return -4;
@@ -77,36 +81,6 @@ public class Main {
             }
             return min;
         }
-
-        return -1;
     }
 
-    public static void main(String[] args) {
-        String filepath = "src/main/java/ciocolata.in";
-
-        Integer c = null;
-        Integer n = null;
-        List<Integer> sir = null;
-        try {
-            File file = new File(filepath);
-            Scanner scanner = new Scanner(file);
-
-            c = scanner.nextInt();
-            n = scanner.nextInt();
-
-            sir = new ArrayList<Integer>();
-
-            while (scanner.hasNext()) {
-                sir.add(scanner.nextInt());
-            }
-
-            scanner.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(ciocolata(c, n, sir));
-
-    }
 }
