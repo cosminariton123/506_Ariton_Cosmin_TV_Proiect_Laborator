@@ -18,7 +18,7 @@ public class CiocolataTest {
         -3 pentru erori cu privire la elementele sirului
         -4 pentru erori cu privire la n < 2 pentru c = 2, caz ce apare indirect din
             "fiecare fată trebuie să consume cel puțin o tabletă de ciocolată" cand este considerata problema 2
-    Mai mult, verificarile vor fi executate in ordinea descrisa anterior, verificarea pentru eroarea -4 nefiind
+    Mai mult, verificarile vor fi executate in ordinea descrisa anterior, ex: verificarea pentru eroarea -4 nefiind
         executata daca c = 1
 
 
