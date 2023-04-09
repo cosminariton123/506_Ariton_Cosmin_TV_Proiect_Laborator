@@ -187,14 +187,16 @@ public class MutantOrdinul1EchivalentTest {
         Assertions.assertEquals(-1, MutantOrdinul1Echivalent.ciocolata(3, 2, Arrays.asList(2, 2)));
         Assertions.assertEquals(-2, MutantOrdinul1Echivalent.ciocolata(1, -1, Arrays.asList(2, 3, 4)));
         Assertions.assertEquals(-2, MutantOrdinul1Echivalent.ciocolata(2, -1, Arrays.asList(2, 3, 4)));
+        Assertions.assertEquals(-3, MutantOrdinul1Echivalent.ciocolata(1, 1, Arrays.asList(-1)));
         Assertions.assertEquals(-3, MutantOrdinul1Echivalent.ciocolata(2, 1, Arrays.asList(-1)));
         Assertions.assertEquals(-3, MutantOrdinul1Echivalent.ciocolata(1, 3, Arrays.asList(-1, 2, 3)));
-        Assertions.assertEquals(-3, MutantOrdinul1Echivalent.ciocolata(1, 1, Arrays.asList(-1)));
         Assertions.assertEquals(-3, MutantOrdinul1Echivalent.ciocolata(2, 3, Arrays.asList(-1, 2, 3)));
         Assertions.assertEquals(-4, MutantOrdinul1Echivalent.ciocolata(2, 1, Arrays.asList(3)));
+
+        Assertions.assertEquals(30, MutantOrdinul1Echivalent.ciocolata(1, 1, Arrays.asList(30)));
         Assertions.assertEquals(30, MutantOrdinul1Echivalent.ciocolata(1, 4, Arrays.asList(30, 30, 63, 89)));
-        Assertions.assertEquals(0, MutantOrdinul1Echivalent.ciocolata(2, 2, Arrays.asList(2, 2)));
         Assertions.assertEquals(30, MutantOrdinul1Echivalent.ciocolata(2, 2, Arrays.asList(60, 30)));
+        Assertions.assertEquals(0, MutantOrdinul1Echivalent.ciocolata(2, 2, Arrays.asList(2, 2)));
     }
 
 }

@@ -187,14 +187,16 @@ public class MutantNeechivalentViuEquivalencePartitioningTest {
         Assertions.assertEquals(-1, MutantNeechivalentViuEquivalencePartitioning.ciocolata(3, 2, Arrays.asList(2, 2)));
         Assertions.assertEquals(-2, MutantNeechivalentViuEquivalencePartitioning.ciocolata(1, -1, Arrays.asList(2, 3, 4)));
         Assertions.assertEquals(-2, MutantNeechivalentViuEquivalencePartitioning.ciocolata(2, -1, Arrays.asList(2, 3, 4)));
+        Assertions.assertEquals(-3, MutantNeechivalentViuEquivalencePartitioning.ciocolata(1, 1, Arrays.asList(-1)));
         Assertions.assertEquals(-3, MutantNeechivalentViuEquivalencePartitioning.ciocolata(2, 1, Arrays.asList(-1)));
         Assertions.assertEquals(-3, MutantNeechivalentViuEquivalencePartitioning.ciocolata(1, 3, Arrays.asList(-1, 2, 3)));
-        Assertions.assertEquals(-3, MutantNeechivalentViuEquivalencePartitioning.ciocolata(1, 1, Arrays.asList(-1)));
         Assertions.assertEquals(-3, MutantNeechivalentViuEquivalencePartitioning.ciocolata(2, 3, Arrays.asList(-1, 2, 3)));
         Assertions.assertEquals(-4, MutantNeechivalentViuEquivalencePartitioning.ciocolata(2, 1, Arrays.asList(3)));
+
+        Assertions.assertEquals(30, MutantNeechivalentViuEquivalencePartitioning.ciocolata(1, 1, Arrays.asList(30)));
         Assertions.assertEquals(30, MutantNeechivalentViuEquivalencePartitioning.ciocolata(1, 4, Arrays.asList(30, 30, 63, 89)));
-        Assertions.assertEquals(0, MutantNeechivalentViuEquivalencePartitioning.ciocolata(2, 2, Arrays.asList(2, 2)));
         Assertions.assertEquals(30, MutantNeechivalentViuEquivalencePartitioning.ciocolata(2, 2, Arrays.asList(60, 30)));
+        Assertions.assertEquals(0, MutantNeechivalentViuEquivalencePartitioning.ciocolata(2, 2, Arrays.asList(2, 2)));
     }
 
 }
